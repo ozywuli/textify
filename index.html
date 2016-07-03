@@ -23,20 +23,47 @@ var textArray = $('.text').text().split('');
 
 console.log(textArray);
 
+var ogChars = [];
+
 textArray.forEach(function(item, index, array) {
+
     if (item !== ' ') {
         $('.wrapped-text').append('<span class="letter">' + item + '</span>')
+
+        ogChars.push(item);
     } else {
+        
         $('.wrapped-text').append(' ')
     }    
 });
 
-var symbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+console.log(ogChars);
+
+var symbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 // window.setInterval(function() {
 //     var randomNum = Math.floor(Math.random() * symbols.length);
 //     $('.anim-text').html(symbols[randomNum]);
 // }, 50)
+
+var refreshIntervalId = window.setInterval(function() {
+
+    $('.wrapped-text span').each(function() {
+        var randomNum = Math.floor(Math.random() * symbols.length);
+        $(this).html(symbols[randomNum]);
+    });
+
+}, 50)
+
+console.log(refreshIntervalId);
+
+
+window.setTimeout(function() {
+    window.clearInterval(refreshIntervalId);
+    $('.wrapped-text span').each(function(index) {
+        $(this).html(ogChars[index]);)
+    });
+}, 1000);
 
 </script>
 
