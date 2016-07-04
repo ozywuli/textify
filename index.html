@@ -50,7 +50,7 @@ var symbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
 
 var refreshIntervalId = window.setInterval(function() {
 
-    $('.wrapped-text span').each(function() {
+    $('.wrapped-text .letter').each(function() {
         var randomNum = Math.floor(Math.random() * symbols.length);
         $(this).html(symbols[randomNum]);
     });
@@ -60,12 +60,33 @@ var refreshIntervalId = window.setInterval(function() {
 console.log(refreshIntervalId);
 
 
+// window.clearInterval(refreshIntervalId);
+
 window.setTimeout(function() {
-    window.clearInterval(refreshIntervalId);
+
+
+
+
     $('.wrapped-text span').each(function(index) {
-        $(this).html(ogChars[index]);)
+        $(this).html(ogChars[index])
     });
 }, 1000);
+
+function start(counter){
+  if (counter < 10) {
+    
+    setTimeout(function(){
+
+        $('.wrapped-text .letter').eq(0).replaceWith('<span>' + ogChars[counter] + '</span>');
+
+        counter++;
+        console.log(counter);
+        start(counter);
+
+    }, 250);
+  }
+}
+start(0);
 
 </script>
 
