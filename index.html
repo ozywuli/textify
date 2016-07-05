@@ -57,9 +57,10 @@ window.setTimeout(function() {
 function start(counter){
   if (counter < ogChars.length) {
 
-    $('.wrapped-text .letter').eq(counter).css('display', 'inline');
+    // hidden reveal text effect
+    // $('.wrapped-text .letter').eq(counter).css('display', 'inline');
     
-    setTimeout(function(){
+    setTimeout(function() {
 
         $('.wrapped-text .letter').eq(0).replaceWith('<span>' + ogChars[counter] + '</span>');
 
@@ -71,10 +72,26 @@ function start(counter){
             window.clearInterval(refreshIntervalId);
         }
 
-    }, 250);
+    }, 500);
   }
 }
 start(0);
+
+
+function textReveal(counter) {
+    if (counter < ogChars.length) {
+
+        setTimeout(function() {
+            $('.wrapped-text .letter').eq(counter).css('display', 'inline');
+
+            counter++;
+            textReveal(counter)
+        }, 100);
+
+    }
+}
+textReveal(0)
+
 
 </script>
 
