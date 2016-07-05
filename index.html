@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+
+    <style>
+        .wrapped-text .letter {
+            display: none;
+        }
+    </style>
+
 </head>
 <body>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia facilis alias aliquam repellendus. Voluptate, architecto, accusamus. Tenetur iure impedit quis neque inventore alias reiciendis debitis sit, minima rem delectus deleniti.</p>
 
 <p class="text">Los Angeles</p>
 
 <p class="wrapped-text"></p>
 
-<p class="anim-text">a</p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script>
 
-
-// $('.text').html($('.text').text().split(''))
-
-var textArray = $('.text').text().split('');
-
-console.log(textArray);
+var symbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 var ogChars = [];
+
+var textArray = $('.text').text().split('');
 
 textArray.forEach(function(item, index, array) {
 
@@ -34,19 +35,9 @@ textArray.forEach(function(item, index, array) {
 
         ogChars.push(item);
     } else {
-        
         $('.wrapped-text').append(' ')
     }    
 });
-
-console.log(ogChars);
-
-var symbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-// window.setInterval(function() {
-//     var randomNum = Math.floor(Math.random() * symbols.length);
-//     $('.anim-text').html(symbols[randomNum]);
-// }, 50)
 
 var refreshIntervalId = window.setInterval(function() {
 
@@ -57,31 +48,28 @@ var refreshIntervalId = window.setInterval(function() {
 
 }, 50)
 
-console.log(refreshIntervalId);
-
-
-// window.clearInterval(refreshIntervalId);
-
 window.setTimeout(function() {
-
-
-
-
     $('.wrapped-text span').each(function(index) {
         $(this).html(ogChars[index])
     });
 }, 1000);
 
 function start(counter){
-  if (counter < 10) {
+  if (counter < ogChars.length) {
+
+    $('.wrapped-text .letter').eq(counter).css('display', 'inline');
     
     setTimeout(function(){
 
         $('.wrapped-text .letter').eq(0).replaceWith('<span>' + ogChars[counter] + '</span>');
 
         counter++;
-        console.log(counter);
         start(counter);
+
+        if (counter === ogChars.length ) {
+            console.log('clear');
+            window.clearInterval(refreshIntervalId);
+        }
 
     }, 250);
   }
